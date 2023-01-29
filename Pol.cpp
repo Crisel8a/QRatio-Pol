@@ -174,13 +174,23 @@ Pol operator % (const Pol& a, const Pol& b){
 
 
 Pol mcd (const Pol& a, const Pol& b){
-	Pol r, r1, r2;
-	r1 = a;
-	r2 = b;
-	do{
-		r = r1%r2;
-		r1 = r2;
-		r2 = r;
-	}while(r2.Gr() != 0 && r2[0].getReal() != 0 && r2[0].getImaginaria() != 0);
-	return r1;
+
+	Pol aux_a(a.Gr());
+	for(int i = 0;  i <= a.Gr(); i++){
+		aux_a[i] = a[i];
+	}
+	Pol aux_b(b.Gr());
+	for(int i = 0;  i <= b.Gr(); i++){
+		aux_b[i] = b[i];
+	}
+
+	Pol r;
+	while (true){
+		r = aux_a%aux_b;
+		if(r.Gr() <= 0){
+			return aux_b;
+		}
+		aux_a = aux_b;
+		aux_b = r;
+	}
 }
