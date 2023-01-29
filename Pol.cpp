@@ -143,5 +143,31 @@ Pol operator / (const Pol& a, const Pol& b)
 		numerador = numerador - nuevo;
 	} while (numerador.Gr() >= denominador.Gr());
 
-	return cociente;
+	return cociente + numerador*denominador;
+}
+
+
+/*mcd: a/b -> b  = a*q + r1
+         mientras que el ri sea distinto de cero 
+         pero no se donde indexara i pq puede tomar musho 
+         seguimos haciendo la división
+         si ri = 0, ri-1 es el mcd
+        */
+
+Pol Pol::mcd(Pol b){
+    if(a.Gr()<b.Gr()){
+        while (residuo != 0){
+            
+            resultado = b / p;
+            Pol residuo(b.Gr());
+            residuo = b - resultado*p;
+            resultado2 = p / residuo
+            Pol residuo2(p.Gr())
+            residuo2 = p -resultado2*residuo2
+
+        }
+    }
+
+    return 
+
 }

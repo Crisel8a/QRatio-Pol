@@ -18,6 +18,8 @@ class Pol {
 		QRatio operator[] (int) const;
 		QRatio& operator[] (int);
 		Pol& operator = (const Pol&  q);
+        //Pol mcd(const Pol a, const Pol b)
+
 };
 
 ostream& operator << (ostream& out, const Pol& p);
