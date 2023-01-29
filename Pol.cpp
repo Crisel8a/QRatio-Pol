@@ -122,19 +122,26 @@ Pol operator * (const Pol& a, const Pol& b)
 
 Pol operator / (const Pol& a, const Pol& b)
 {
-	int g=a.Gr() - b.Gr();
+	int g;
     if(a.Gr()<b.Gr()){
         g = b.Gr() - a.Gr()
+        double coeficiente = a[a.Gr()]/b[b.Gr()]; // este es de grado g
+        Pol cociente(g);
+        cociente[g] = coeficiente;
+        Pol nuevo(b.Gr());
+        nuevo = cociente*a;
+        b = b - nuevo;
+
     }else{
-        
+        g = a.Gr() - b.Gr()
     }
-	Pol prod(g);
+
 	for (int k=0; k<=a.Gr(); ++k){
 		for (int j=0;j<=b.Gr();j++){
-            prod[k+j] = prod[k+j] + a[k]*b[j];
+            div[k+j] = div[k+j] + a[k]/b[j];
 
         }
     }    
 
-	return prod;
+	return div;
 }
