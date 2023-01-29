@@ -30,7 +30,7 @@ int Pol::Gr(void) const
 QRatio Pol::operator[](int k) const
 {
 	if (k>n)
-		return 0.0;
+		return 0.0;  // aqui hay un bug
 	else
 		return p[k];
 }
