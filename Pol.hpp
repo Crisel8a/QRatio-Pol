@@ -28,4 +28,7 @@ Pol operator + (const Pol&, const Pol&);
 Pol operator - (const Pol&, const Pol&);
 Pol operator * (const Pol&, const Pol&);
 Pol operator / (const Pol&, const Pol&);
+Pol operator % (const Pol&, const Pol&);
+
+Pol mcd (const Pol&, const Pol&);
 #endif

@@ -21,6 +21,7 @@ int main(void)
 	cout << "La resta es: " << p-q << endl;
 	cout << "El producto es: " << p*q << endl;
 	cout << "La division es: " << p/q << endl;
+	cout << "El MCD es: " << mcd(p,q) << endl;
 
 	return 0;
 }

@@ -147,3 +147,40 @@ Pol operator / (const Pol& a, const Pol& b)
 }
 
 
+Pol operator % (const Pol& a, const Pol& b){
+	int g;
+	Pol numerador, denominador;
+    if(a.Gr()<b.Gr()){
+		denominador = a;
+		numerador = b;
+
+    }else{
+		numerador = a;
+		denominador = b;
+    }
+
+	g = numerador.Gr() - denominador.Gr();
+	Pol cociente(g);
+
+	do {
+		cociente[g] = numerador[numerador.Gr()]/denominador[denominador.Gr()];
+		Pol nuevo(numerador.Gr());
+		nuevo = cociente*denominador;
+		numerador = numerador - nuevo;
+	} while (numerador.Gr() >= denominador.Gr());
+
+	return numerador;
+}
+
+
+Pol mcd (const Pol& a, const Pol& b){
+	Pol r, r1, r2;
+	r1 = a;
+	r2 = b;
+	do{
+		r = r1%r2;
+		r1 = r2;
+		r2 = r;
+	}while(r2.Gr() != 0 && r2[0].getReal() != 0 && r2[0].getImaginaria() != 0);
+	return r1;
+}
