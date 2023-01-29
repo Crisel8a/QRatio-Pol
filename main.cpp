@@ -15,9 +15,12 @@ int main(void)
 	cin >> p;
 	cout << "\nConstruyendo el polinomio q \n";
 	cin >> q;
-	cout << "La suma es: " << p+q << endl;
+	cout << "\n\nEl polinomio p es: " << p << endl;
+	cout << "El polinomio q es: " << q << endl;
+	cout << "\nLa suma es: " << p+q << endl;
 	cout << "La resta es: " << p-q << endl;
-	cout << "EL producto es: " << p*q << endl;
+	cout << "El producto es: " << p*q << endl;
+	cout << "La division es: " << p/q << endl;
 
 	return 0;
 }
