@@ -31,10 +31,10 @@ istream& operator >> (istream& inp, QRatio& z)
 
     // TODO: Implementar lectura de numeros en forma p/q
 	// Leyendo la parte real
-    cout << "Ingresa parte real: ";
+    cout << "\tIngresa r: ";
     inp >> r;
     // Leyendo la parte imaginaria
-    cout << "Ingresa parte imaginaria: ";
+    cout << "\tIngresa i: ";
 	inp >> i;
 
     z = QRatio(r, i);
@@ -50,30 +50,20 @@ ostream& operator << (ostream& out, const QRatio& z)
     // noshowpos 
 
     // TODO: Optimizar xd y poner el caso cuando imaginaria vale -1
-    bool real_zero = z.getReal() == 0;
-    bool imaginaria_zero = z.getImaginaria() == 0;
-
-    if(real_zero){
-        if(imaginaria_zero){
-            out << 0 << endl;
-        } else if(z.getImaginaria()){
-            out << noshowpos << z.getImaginaria() << "i" << endl;
-        }
-    }
-
+    
 
     if(z.getReal() == 0 && z.getImaginaria() == 0)
-        out << 0 << endl;
+        out << 0;
     else if(z.getImaginaria() == 0)
-        out << noshowpos << z.getReal() << endl;
+        out << noshowpos << z.getReal();
     else if(z.getReal() == 0 && z.getImaginaria() != 1)
-        out << noshowpos << z.getImaginaria() << "i" << endl;
+        out << noshowpos << z.getImaginaria() << "i";
     else if(z.getReal() == 0 && z.getImaginaria() == 1)
-        out << noshowpos << "i" << endl;
+        out << noshowpos << "i";
     else if(z.getImaginaria() == 1)
-        out <<  noshowpos << z.getReal()  << "+i" << endl;
+        out <<  noshowpos << z.getReal()  << "+i";
     else
-         out << noshowpos << z.getReal() << showpos << z.getImaginaria() << "i" << endl;
+         out << noshowpos << z.getReal() << showpos << z.getImaginaria() << "i";
     
 	return out;
 }

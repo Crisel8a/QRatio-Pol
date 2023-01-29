@@ -11,7 +11,7 @@ Pol::Pol(int gr)
 	n= gr;
 	p= new QRatio [n+1];
 	for (int k=0; k<=n; ++k)
-		p[k]= 0.0;
+		p[k]= QRatio(0,0);
 }
 
 Pol::~Pol(void)
@@ -30,7 +30,7 @@ int Pol::Gr(void) const
 QRatio Pol::operator[](int k) const
 {
 	if (k>n)
-		return 0.0;  // aqui hay un bug
+		return QRatio(0,0);  
 	else
 		return p[k];
 }
@@ -53,11 +53,14 @@ Pol& Pol::operator = (const Pol& q)
 istream& operator>> (istream& inp, Pol& p)
 {
 	int n;
+    cout << "Introduce el grado del polinomio: ";
 	inp >> n;
 	Pol q(n);
-	cout << q << endl;
-	for (int k=0; k<=n; ++k)
+	//cout << q << endl;
+	for (int k=0; k<=n; ++k){
+        cout << "\nIngresa el coeficiente x^" << k << endl;
 		inp >> q[k];
+    }
 	p= q;
 	return inp;
 }
@@ -66,9 +69,11 @@ ostream& operator << (ostream& out, const Pol& p)
 {
 	if (p.Gr() < 0)
 		cout << 0.0;
-	else
-		for (int k=p.Gr(); k>=0; --k) 
-			out << showpos << p[k] << "x^" << noshowpos << k;
+	else{
+		for (int k=p.Gr(); k>0; --k) 
+			out << "(" << p[k] << ")" << "x^" << noshowpos << k << " + ";
+        out << "(" << p[0] << ")" << "x^" << noshowpos << 0;
+    }
 	return out;
 }
 
