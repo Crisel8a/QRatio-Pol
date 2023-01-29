@@ -25,4 +25,5 @@ istream& operator >> (istream& out, Pol& p);
 Pol operator + (const Pol&, const Pol&);
 Pol operator - (const Pol&, const Pol&);
 Pol operator * (const Pol&, const Pol&);
+Pol operator / (const Pol&, const Pol&);
 #endif

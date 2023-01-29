@@ -91,3 +91,50 @@ Pol operator + (const Pol& a, const Pol& b)
 }
 
 
+Pol operator - (const Pol& a, const Pol& b)
+{
+	int g;
+	if (a.Gr() > b.Gr())
+		g= a.Gr();
+	else
+		g= b.Gr();
+	Pol resta(g);
+	for (int k=0; k<=g; ++k)
+		resta[k]= a[k] - b[k];
+	return resta;
+}
+
+
+Pol operator * (const Pol& a, const Pol& b)
+{
+	int g=a.Gr() + b.Gr();
+	Pol prod(g);
+	for (int k=0; k<=a.Gr(); ++k){
+		for (int j=0;j<=b.Gr();j++){
+            prod[k+j] = prod[k+j] + a[k]*b[j];
+
+        }
+    }    
+
+	return prod;
+}
+
+
+Pol operator / (const Pol& a, const Pol& b)
+{
+	int g=a.Gr() - b.Gr();
+    if(a.Gr()<b.Gr()){
+        g = b.Gr() - a.Gr()
+    }else{
+        
+    }
+	Pol prod(g);
+	for (int k=0; k<=a.Gr(); ++k){
+		for (int j=0;j<=b.Gr();j++){
+            prod[k+j] = prod[k+j] + a[k]*b[j];
+
+        }
+    }    
+
+	return prod;
+}
