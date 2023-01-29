@@ -22,7 +22,7 @@ Pol::~Pol(void)
 int Pol::Gr(void) const
 {
 	int g= n;
-	while (g>=0 && p[g].imaginaria == 0 && p[g].real == 0)
+	while (g>=0 && p[g].getImaginaria() == 0 && p[g].getReal() == 0)
 		--g;
 	return g;
 }

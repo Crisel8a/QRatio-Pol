@@ -5,26 +5,39 @@
 #include "./QRatio.hpp"
 
 
-QRatio::QRatio() 
+QRatio::QRatio(double r, double i)
 {
-    return;   
+    real = r;
+    imaginaria = i;
 }
 
 
-istream& operator>> (istream& inp, QRatio& z)
+double QRatio::getReal(void) const
+{
+    return real;
+}
+
+
+double QRatio::getImaginaria(void) const
+{
+    return imaginaria;
+}
+
+
+istream& operator >> (istream& inp, QRatio& z)
 {
     // Metodo que lee un numero complejo desde cin
-	QRatio w;
+    double r, i;
 
     // TODO: Implementar lectura de numeros en forma p/q
 	// Leyendo la parte real
     cout << "Ingresa parte real: ";
-    inp >> w.real;
+    inp >> r;
     // Leyendo la parte imaginaria
     cout << "Ingresa parte imaginaria: ";
-	inp >> w.imaginaria;
+	inp >> i;
 
-    z = w;
+    z = QRatio(r, i);
 	
     return inp;
 }
@@ -37,18 +50,30 @@ ostream& operator << (ostream& out, const QRatio& z)
     // noshowpos 
 
     // TODO: Optimizar xd y poner el caso cuando imaginaria vale -1
-    if(z.real == 0 && z.imaginaria == 0)
+    bool real_zero = z.getReal() == 0;
+    bool imaginaria_zero = z.getImaginaria() == 0;
+
+    if(real_zero){
+        if(imaginaria_zero){
+            out << 0 << endl;
+        } else if(z.getImaginaria()){
+            out << noshowpos << z.getImaginaria() << "i" << endl;
+        }
+    }
+
+
+    if(z.getReal() == 0 && z.getImaginaria() == 0)
         out << 0 << endl;
-    else if(z.imaginaria == 0)
-        out << noshowpos << z.real << endl;
-    else if(z.real == 0 && z.imaginaria != 1)
-        out << noshowpos << z.imaginaria << "i" << endl;
-    else if(z.real == 0 && z.imaginaria == 1)
+    else if(z.getImaginaria() == 0)
+        out << noshowpos << z.getReal() << endl;
+    else if(z.getReal() == 0 && z.getImaginaria() != 1)
+        out << noshowpos << z.getImaginaria() << "i" << endl;
+    else if(z.getReal() == 0 && z.getImaginaria() == 1)
         out << noshowpos << "i" << endl;
-    else if(z.imaginaria == 1)
-        out <<  noshowpos << z.real  << "+i" << endl;
+    else if(z.getImaginaria() == 1)
+        out <<  noshowpos << z.getReal()  << "+i" << endl;
     else
-         out << noshowpos << z.real << showpos << z.imaginaria << "i" << endl;
+         out << noshowpos << z.getReal() << showpos << z.getImaginaria() << "i" << endl;
     
 	return out;
 }
@@ -56,45 +81,42 @@ ostream& operator << (ostream& out, const QRatio& z)
 
 QRatio operator + (const QRatio& z, const QRatio& w)
 {
-	QRatio resultado;
+    double r, i;
+    r = z.getReal() + w.getReal();
+    i = z.getImaginaria() + w.getImaginaria();
 
-    resultado.real = z.real + w.real;
-    resultado.imaginaria = z.imaginaria + w.imaginaria;
-
-    return resultado;
+    return QRatio(r, i);
 }
 
 
 QRatio operator - (const QRatio& z, const QRatio& w)
 {
-	QRatio resultado;
 
-    resultado.real = z.real - w.real;
-    resultado.imaginaria = z.imaginaria - w.imaginaria;
+    double r, i;
+    r = z.getReal() - w.getReal();
+    i = z.getImaginaria() - w.getImaginaria();
 
-    return resultado;
+    return QRatio(r, i);
 }
 
 
 QRatio operator * (const QRatio& z, const QRatio& w)
 {
     //(a+bi)(c+di) =  a*c + (b*c)i + (a*d)i + (b*d)i^2 = a*c + (b*c)i + (a*d)i + (b*d)(-1) 
-	QRatio resultado;
+    double r, i; 
+    r = z.getReal()*w.getReal() - z.getImaginaria()*w.getImaginaria();
+    i = z.getImaginaria()*w.getReal() + z.getReal()*w.getImaginaria();
 
-    resultado.real = z.real*w.real - z.imaginaria*w.imaginaria;
-    resultado.imaginaria = z.imaginaria*w.real + z.real*w.imaginaria;
-
-    return resultado;
+    return QRatio(r, i);
 }
 
 
 QRatio operator / (const QRatio& z, const QRatio& w)
 {
  
-	QRatio resultado;
+    double r, i;
+    r = (z.getReal()*w.getReal() + z.getImaginaria()*w.getImaginaria())/(w.getReal()*w.getReal() + w.getImaginaria()*w.getImaginaria());
+    i = (z.getImaginaria()*w.getReal() - z.getReal()*w.getImaginaria())/(w.getReal()*w.getReal() + w.getImaginaria()*w.getImaginaria());
 
-    resultado.real = (z.real*w.real + z.imaginaria*w.imaginaria)/(w.real*w.real + w.imaginaria*w.imaginaria);
-    resultado.imaginaria = (z.imaginaria*w.real - z.real*w.imaginaria)/(w.real*w.real + w.imaginaria*w.imaginaria);
-
-    return resultado;
+    return QRatio(r, i);
 }

@@ -7,9 +7,12 @@
 using namespace std;
 
 class QRatio {
+	private:
+		double real, imaginaria;
 	public:
-		float real, imaginaria;
-		QRatio();
+		QRatio(double r=0.0, double i=0.0);
+		double getReal(void) const;
+		double getImaginaria(void) const;
 };
 
 ostream& operator << (ostream& out, const QRatio& z);
